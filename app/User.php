@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return 'Hello Age!';
     }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'owner_id');
+    }
 }
