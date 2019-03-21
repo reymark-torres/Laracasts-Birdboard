@@ -2,6 +2,8 @@
 
 @section('content')
     <form method="POST" action="/projects">
+        @csrf
+
         <h1 class="heading is-1">Create Project</h1>
 
         <div class="field">
