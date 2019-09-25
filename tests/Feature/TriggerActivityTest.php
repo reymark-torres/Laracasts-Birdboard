@@ -21,7 +21,6 @@ class TriggerActivityTest extends TestCase
 
         tap($project->activity->last(), function ($activity) {
             $this->assertEquals('created', $activity->description);
-
             $this->assertNull($activity->changes);
         });
     }
