@@ -13,9 +13,34 @@ trait RecordsActivity
 
     public static function bootRecordsActivity()
     {
-        static::updating(function ($model) {
-            $model->oldAttributes = $model->getOriginal();
-        });
+        foreach (self::recordableEvents() as $event) {
+            static::$event(function ($model) use ($event) {
+                $model->recordActivity($model->activityDescription($event));
+            });
+
+            if ($event === 'updated') {
+                static::updating(function ($model) {
+                    $model->oldAttributes = $model->getOriginal();
+                });
+            }
+        }
+    }
+
+    public function activityDescription($description)
+    {
+        return "{$description}_" . strtolower(class_basename($this));
+    }
+
+    /**
+     * @return array
+     */
+    protected static function recordableEvents()
+    {
+        if (isset(static::$recordableEvents)) {
+            return static::$recordableEvents;
+        }
+
+        return ['created', 'updated', 'deleted'];
     }
 
     /**
