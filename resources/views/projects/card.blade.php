@@ -8,4 +8,13 @@
     <div class="text-grey">
         {{ str_limit($project->description, 100) }}
     </div>
+
+    <footer>
+        <form action="{{ $project->path() }}" class="text-right" method="POST">
+            @method('DELETE')
+            @csrf
+
+            <button class="text-xs" type="submit">Delete</button>
+        </form>
+    </footer>
 </div>
