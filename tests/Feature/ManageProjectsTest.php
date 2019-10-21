@@ -52,6 +52,17 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    function a_user_can_see_all_projects_they_have_been_invited_to_on_their_dashboard()
+    {
+        // Given were signed in ($this->signIn() returns $user)
+        // and we've been invited to a project that was not created by a user
+        $project = tap(ProjectFactory::create())->invite($this->signIn());
+
+        // when I visit the dashboard, I should visit that project
+        $this->get('/projects')->assertSee($project->title);
+    }
+
+    /** @test */
     function unauthorized_users_cannot_delete_projects()
     {
         $project = ProjectFactory::create();
