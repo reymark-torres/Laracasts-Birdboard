@@ -28,7 +28,6 @@ class InvitationsTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        // Given I have a project
         $project = ProjectFactory::create();
 
         $userToInvite = factory(User::class)->create();
