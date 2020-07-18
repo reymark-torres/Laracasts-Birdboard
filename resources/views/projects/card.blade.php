@@ -9,12 +9,14 @@
         {{ str_limit($project->description, 100) }}
     </div>
 
-    <footer>
-        <form action="{{ $project->path() }}" class="text-right" method="POST">
-            @method('DELETE')
-            @csrf
+    @can('manage', $project)
+        <footer>
+            <form action="{{ $project->path() }}" class="text-right" method="POST">
+                @method('DELETE')
+                @csrf
 
-            <button class="text-xs" type="submit">Delete</button>
-        </form>
-    </footer>
+                <button class="text-xs" type="submit">Delete</button>
+            </form>
+        </footer>
+    @endcan
 </div>
